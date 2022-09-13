@@ -30,11 +30,7 @@ module.exports = {
       {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "ts-loader",
-          },
-        ],
+        use: ["babel-loader", "ts-loader"],
       },
       {
         enforce: "pre",
@@ -83,9 +79,6 @@ module.exports = {
             loader: "less-loader",
             options: {
               lessOptions: {
-                modifyVars: {
-                  "@primary-color": "#1DA57A",
-                },
                 javascriptEnabled: true,
               },
             },

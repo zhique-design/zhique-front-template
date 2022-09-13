@@ -1,6 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { createRoot } from "react-dom/client";
+import { Button } from "antd";
+import "./global.less";
 
-const Hello: React.FC = () => <div>知雀</div>;
+const container = document.getElementById("root") as Element;
+const root = createRoot(container);
 
-ReactDOM.render(<Hello />, document.getElementById("root"));
+const Hello: React.FC = () => (
+  <div>
+    <Button type="primary">测试</Button>
+  </div>
+);
+
+root.render(<Hello />);
