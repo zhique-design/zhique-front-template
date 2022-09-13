@@ -1,4 +1,5 @@
 const path = require("path");
+const WebpackBar = require("webpackbar");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -113,6 +114,7 @@ module.exports = {
     },
   },
   plugins: [
+    new WebpackBar({ profile: true }),
     new HtmlWebpackPlugin({
       title: "知雀",
       template: path.resolve(__dirname, "public", "index.html"),
