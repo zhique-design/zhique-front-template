@@ -19,6 +19,13 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint", "jsx-a11y", "prettier"],
+  settings: {
+    "import/resolver": {
+      webpack: {
+        config: "webpack.config.js",
+      },
+    },
+  },
   rules: {
     "react/jsx-filename-extension": [
       2,
@@ -29,5 +36,14 @@ module.exports = {
     "@typescript-eslint/no-var-requires": [0],
     "react/function-component-definition": [0],
     "prettier/prettier": [2],
+    "import/extensions": [
+      2,
+      "ignorePackages",
+      {
+        ts: "never",
+        tsx: "never",
+        js: "never",
+      },
+    ],
   },
 };
