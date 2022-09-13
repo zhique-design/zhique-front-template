@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const WebpackBar = require("webpackbar");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
@@ -103,6 +104,7 @@ module.exports = {
     publicPath: "/",
   },
   optimization: {
+    nodeEnv: false,
     splitChunks: {
       chunks: "all",
       name: false,
@@ -144,6 +146,11 @@ module.exports = {
       emitWarning: true,
       failOnError: true,
       failOnWarning: true,
+    }),
+    new webpack.DefinePlugin({
+      "process.env": {
+        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      },
     }),
   ],
 };
