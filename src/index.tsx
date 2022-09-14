@@ -1,8 +1,19 @@
-import React from "react";
-import { createRoot } from "react-dom/client";
-import ZhiQue from "./ZhiQue";
+import dva, { Router } from 'dva';
+import createLoading from 'dva-loading';
+import ZhiQue from './ZhiQue';
+// 初始化dvaApp
+const app = dva({
+  // eslint-disable-next-line global-require
+  history: require('history').createBrowserHistory(),
+});
 
-const container = document.getElementById("root") as Element;
-const root = createRoot(container);
+// 将dvaApp示例保存到window对象中，以便在其他地方调用
+window.dvaApp = app;
 
-root.render(<ZhiQue />);
+app.router(ZhiQue as Router);
+
+app.use(createLoading());
+
+app.model(require('./models/global').default);
+
+app.start('#root');
