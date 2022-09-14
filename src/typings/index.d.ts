@@ -1,0 +1,17 @@
+import { DvaInstance } from 'dva';
+
+declare global {
+  interface Window {
+    dvaApp: DvaInstance;
+  }
+
+  declare module '*.less';
+
+  declare module '*.svg';
+  declare module '*.png';
+  declare module '*.jpg';
+  declare module '*.jpeg';
+  declare module '*.gif';
+  declare module '*.bmp';
+  declare module '*.tiff';
+}

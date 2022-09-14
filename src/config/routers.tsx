@@ -1,18 +1,13 @@
 import React from "react";
-import Welcome from "@/pages/Welcome";
 
 export interface RouterConfig {
   path?: string;
   redirect?: string;
-  element?: React.ReactNode | null;
+  component?: any;
+  models?: string[];
   children?: Array<RouterConfig>;
 }
 
-const config: Array<RouterConfig> = [
-  {
-    path: "/",
-    element: <Welcome />,
-  },
-];
+const config: Array<RouterConfig> = [];
 
 export default config;
