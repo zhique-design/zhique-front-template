@@ -36,6 +36,7 @@ module.exports = {
       {
         enforce: "pre",
         test: /\.js$/,
+        exclude: /node_modules/,
         loader: "source-map-loader",
       },
       {
@@ -82,6 +83,17 @@ module.exports = {
               lessOptions: {
                 javascriptEnabled: true,
               },
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpg|gif|eot|woff|ttf|svg)$/i,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192,
             },
           },
         ],
