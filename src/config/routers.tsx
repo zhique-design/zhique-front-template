@@ -8,6 +8,11 @@ export interface RouterConfig {
   children?: Array<RouterConfig>;
 }
 
-const config: Array<RouterConfig> = [];
+const config: Array<RouterConfig> = [
+  {
+    path: "",
+    component: () => import("@/pages/Welcome")
+  }
+];
 
 export default config;
