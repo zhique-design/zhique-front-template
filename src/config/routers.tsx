@@ -11,8 +11,8 @@ export interface RouterConfig {
 const config: Array<RouterConfig> = [
   {
     path: "",
-    component: () => import("@/pages/Welcome")
-  }
+    component: () => import("@/pages/Welcome"),
+  },
 ];
 
 export default config;
