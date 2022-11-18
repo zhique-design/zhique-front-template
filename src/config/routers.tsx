@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 export interface RouterConfig {
   path?: string;
@@ -10,8 +10,8 @@ export interface RouterConfig {
 
 const config: Array<RouterConfig> = [
   {
-    path: "",
-    component: () => import("@/pages/Welcome"),
+    path: '/',
+    component: () => import('@/pages/Welcome'),
   },
 ];
 

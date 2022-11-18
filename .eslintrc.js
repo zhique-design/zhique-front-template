@@ -5,44 +5,49 @@ module.exports = {
     node: true,
   },
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended",
-    "airbnb",
-    "airbnb/hooks",
-    "plugin:prettier/recommended",
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'airbnb',
+    'airbnb/hooks',
+    'plugin:prettier/recommended',
   ],
   overrides: [],
-  parser: "@typescript-eslint/parser",
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
+    ecmaVersion: 'latest',
+    sourceType: 'module',
   },
-  plugins: ["react", "@typescript-eslint", "jsx-a11y", "prettier"],
+  plugins: ['react', '@typescript-eslint', 'jsx-a11y', 'prettier'],
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       webpack: {
-        config: "webpack.config.js",
+        config: 'webpack.config.js',
       },
     },
   },
   rules: {
-    "react/jsx-filename-extension": [
+    'react/jsx-filename-extension': [
       2,
       {
-        extensions: [".jsx", ".tsx"],
+        extensions: ['.jsx', '.tsx'],
       },
     ],
-    "@typescript-eslint/no-var-requires": [0],
-    "react/function-component-definition": [0],
-    "prettier/prettier": [2],
-    "import/extensions": [
+    '@typescript-eslint/no-var-requires': [0],
+    'react/function-component-definition': [0],
+    'prettier/prettier': [
       2,
-      "ignorePackages",
       {
-        ts: "never",
-        tsx: "never",
-        js: "never",
+        singleQuote: true,
+      },
+    ],
+    'import/extensions': [
+      2,
+      'ignorePackages',
+      {
+        ts: 'never',
+        tsx: 'never',
+        js: 'never',
       },
     ],
   },

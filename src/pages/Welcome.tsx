@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Welcome: React.FC = () => {
   return <div>知雀</div>;

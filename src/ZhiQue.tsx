@@ -1,19 +1,19 @@
-import React from "react";
-import { Redirect, Route, routerRedux, Switch } from "dva/router";
-import { v4 as uuid4 } from "uuid";
-import dynamic from "dva/dynamic";
-import { ConnectedRouterProps } from "react-router-redux";
+import React from 'react';
+import { Redirect, Route, routerRedux, Switch } from 'dva/router';
+import { v4 as uuid4 } from 'uuid';
+import dynamic from 'dva/dynamic';
+import { ConnectedRouterProps } from 'react-router-redux';
 
-import routers from "@/config/routers";
+import routers from '@/config/routers';
 
-import "./global.less";
+import './global.less';
 
 const { ConnectedRouter } = routerRedux;
 
 const modelNotExisted = (app, model) =>
   // eslint-disable-next-line no-underscore-dangle
   !app._models.some(
-    ({ namespace }) => namespace === model.substring(model.lastIndexOf("/") + 1)
+    ({ namespace }) => namespace === model.substring(model.lastIndexOf('/') + 1)
   );
 
 // @ts-ignore
