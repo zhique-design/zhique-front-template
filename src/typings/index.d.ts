@@ -1,10 +1,4 @@
-import { DvaInstance } from 'dva';
-
 declare global {
-  interface Window {
-    dvaApp: DvaInstance;
-  }
-
   declare module '*.less';
 
   declare module '*.svg';
