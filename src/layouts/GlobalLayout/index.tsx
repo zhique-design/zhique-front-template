@@ -39,7 +39,7 @@ const query = {
 
 @withRouter
 @observer
-export default class GlobalLayout extends Component<any> {
+export default class GlobalLayout extends Component<RouterComponentProps> {
   globalStore: GlobalStore;
 
   enquireHandler: any;
