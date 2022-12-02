@@ -12,15 +12,15 @@ export default class GlobalStore {
     makeAutoObservable(this);
   }
 
-  setProps(props) {
+  setProps = (props) => {
     this.props = props;
-  }
+  };
 
-  setMobile(isMobile: boolean) {
+  setMobile = (isMobile: boolean) => {
     this.isMobile = isMobile;
-  }
+  };
 
-  setDocumentTitle(documentTitle: string) {
+  setDocumentTitle = (documentTitle: string) => {
     this.documentTitle = documentTitle;
-  }
+  };
 }

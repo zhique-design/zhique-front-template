@@ -7,6 +7,9 @@ import { observer, Provider } from 'mobx-react';
 import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 
+import { withRouter } from '@/components';
+
+import { extractAccessTokenFromHash, setAccessToken } from '@/utils/token';
 import { GlobalStore } from '../stores';
 
 const query = {
@@ -34,8 +37,9 @@ const query = {
   },
 };
 
+@withRouter
 @observer
-export default class GlobalLayout extends Component {
+export default class GlobalLayout extends Component<any> {
   globalStore: GlobalStore;
 
   enquireHandler: any;
@@ -54,9 +58,30 @@ export default class GlobalLayout extends Component {
     });
   }
 
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const {
+      location: { hash },
+    } = this.props;
+    if (nextProps.location.hash !== hash) {
+      this.setAccessToken();
+    }
+  }
+
   componentWillUnmount() {
     unenquireScreen(this.enquireHandler);
   }
+
+  setAccessToken = () => {
+    const token = extractAccessTokenFromHash(window.location.hash);
+    if (token) {
+      setAccessToken(token);
+      const {
+        location: { pathname, search },
+        navigate,
+      } = this.props;
+      navigate({ pathname, search });
+    }
+  };
 
   render() {
     const { documentTitle } = this.globalStore;

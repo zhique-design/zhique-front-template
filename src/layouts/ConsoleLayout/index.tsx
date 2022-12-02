@@ -14,8 +14,10 @@ interface ConsoleLayoutProps {
 @observer
 export default class ConsoleLayout extends Component<ConsoleLayoutProps> {
   componentDidMount() {
-    const { globalStore } = this.props;
-    globalStore.setDocumentTitle('知雀-控制台');
+    const {
+      globalStore: { setDocumentTitle },
+    } = this.props;
+    setDocumentTitle('知雀-控制台');
   }
 
   render() {
