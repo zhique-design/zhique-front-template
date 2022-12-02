@@ -66,9 +66,3 @@ instance.interceptors.response.use(
 );
 
 export default instance;
-
-export function getResponseList(response) {
-  if (response && Array.isArray(response.results)) return response.results;
-  if (Array.isArray(response)) return response;
-  return [];
-}

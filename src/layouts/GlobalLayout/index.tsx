@@ -42,7 +42,7 @@ const query = {
 export default class GlobalLayout extends Component<RouterComponentProps> {
   globalStore: GlobalStore;
 
-  enquireHandler: any;
+  enquireHandler;
 
   constructor(props) {
     super(props);
@@ -56,6 +56,7 @@ export default class GlobalLayout extends Component<RouterComponentProps> {
         setMobile(mobile);
       }
     });
+    this.setAccessToken();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -77,9 +78,8 @@ export default class GlobalLayout extends Component<RouterComponentProps> {
       setAccessToken(token);
       const {
         location: { pathname, search },
-        navigate,
       } = this.props;
-      navigate({ pathname, search });
+      window.location.href = `${pathname}${search}`;
     }
   };
 
