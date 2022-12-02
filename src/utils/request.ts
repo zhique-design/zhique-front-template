@@ -1,25 +1,25 @@
-import axios, { AxiosInstance } from "axios";
-import { notification } from "antd";
+import axios, { AxiosInstance } from 'axios';
+import { notification } from 'antd';
 
-import { stringify } from "qs";
-import { API_HOST, LOGIN_URL } from "./config";
-import { getAccessToken, removeAccessToken } from "./token";
+import { stringify } from 'qs';
+import { API_HOST, LOGIN_URL } from './config';
+import { getAccessToken, removeAccessToken } from './token';
 
-const jsonMimeType = "application/json";
+const jsonMimeType = 'application/json';
 
 const instance: AxiosInstance = axios.create({
   headers: {
-    "Content-Type": jsonMimeType,
+    'Content-Type': jsonMimeType,
     Accept: jsonMimeType,
-    "X-Requested-With": "XMLHttpRequest",
+    'X-Requested-With': 'XMLHttpRequest',
   },
 });
 
 instance.interceptors.request.use(
   (config) => {
-    let { url = "" } = config;
+    let { url = '' } = config;
     const { headers = {} } = config;
-    if (url.indexOf("://") === -1) {
+    if (url.indexOf('://') === -1) {
       url = `${API_HOST}${url}`;
     }
     const token = getAccessToken();
@@ -46,7 +46,7 @@ instance.interceptors.response.use(
   (error) => {
     const { response } = error;
     notification.config({
-      placement: "bottomRight",
+      placement: 'bottomRight',
       bottom: 48,
       duration: 2,
     });
@@ -59,7 +59,7 @@ instance.interceptors.response.use(
       }
     } else {
       notification.error({
-        message: "网络错误",
+        message: '网络错误',
       });
     }
   }
