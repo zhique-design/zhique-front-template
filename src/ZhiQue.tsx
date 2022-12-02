@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
 import { BrowserRouter, useRoutes, Navigate } from 'react-router-dom';
 
+import { Spin } from 'antd';
+
 import routers from '@/config/routers';
 
 import './global.less';
@@ -17,7 +19,7 @@ const RouteTable = (routeList) => {
       routeTable.push({
         path,
         element: (
-          <Suspense>
+          <Suspense fallback={<Spin spinning />}>
             <rest.component />
           </Suspense>
         ),

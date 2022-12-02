@@ -156,6 +156,16 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        API_HOST: JSON.stringify(
+          process.env.API_HOST || 'http://127.0.0.1:8080'
+        ),
+        AUTH_SELF_URL: JSON.stringify(
+          process.env.AUTH_SELF_URL ||
+            'http://127.0.0.1:8080/v1/account/users/self'
+        ),
+        LOGIN_URL: JSON.stringify(
+          process.env.LOGIN_URL || 'http://127.0.0.1:8080/oauth/login'
+        ),
       },
     }),
   ],

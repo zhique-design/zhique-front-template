@@ -10,7 +10,13 @@ export interface RouterConfig {
 const config: Array<RouterConfig> = [
   {
     path: '/',
-    component: lazy(() => import('@/pages/Welcome')),
+    component: lazy(() => import('@/layouts/GlobalLayout')),
+    children: [
+      {
+        path: '/console',
+        component: lazy(() => import('@/layouts/ConsoleLayout')),
+      },
+    ],
   },
 ];
 
