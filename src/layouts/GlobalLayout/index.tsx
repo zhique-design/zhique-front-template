@@ -9,7 +9,6 @@ import { Outlet } from 'react-router-dom';
 
 import { withRouter } from '@/components';
 
-import { extractAccessTokenFromHash, setAccessToken } from '@/utils/token';
 import { GlobalStore } from '../stores';
 
 const query = {
@@ -50,38 +49,28 @@ export default class GlobalLayout extends Component<RouterComponentProps> {
   }
 
   componentDidMount() {
+    const { isMobile, setMobile, setLoactionHash } = this.globalStore;
     this.enquireHandler = enquireScreen((mobile) => {
-      const { isMobile, setMobile } = this.globalStore;
       if (isMobile !== mobile) {
         setMobile(mobile);
       }
     });
-    this.setAccessToken();
+    setLoactionHash(window.location.hash);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const {
       location: { hash },
     } = this.props;
+    const { setLoactionHash } = this.globalStore;
     if (nextProps.location.hash !== hash) {
-      this.setAccessToken();
+      setLoactionHash(window.location.hash);
     }
   }
 
   componentWillUnmount() {
     unenquireScreen(this.enquireHandler);
   }
-
-  setAccessToken = () => {
-    const token = extractAccessTokenFromHash(window.location.hash);
-    if (token) {
-      setAccessToken(token);
-      const {
-        location: { pathname, search },
-      } = this.props;
-      window.location.href = `${pathname}${search}`;
-    }
-  };
 
   render() {
     const { documentTitle } = this.globalStore;
