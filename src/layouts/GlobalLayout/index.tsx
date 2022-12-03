@@ -4,12 +4,11 @@ import { ContainerQuery } from 'react-container-query';
 import DocumentTitle from 'react-document-title';
 import classNames from 'classnames';
 import { observer, Provider } from 'mobx-react';
-import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 
 import { withRouter } from '@/components';
 
-import { GlobalStore } from '../stores';
+import { GlobalStore } from '@/stores';
 
 const query = {
   'screen-xs': {
@@ -78,14 +77,11 @@ export default class GlobalLayout extends Component<RouterComponentProps> {
       <DocumentTitle title={documentTitle}>
         <ContainerQuery query={query}>
           {(params) => (
-            <Layout
-              style={{ minHeight: '100vh' }}
-              className={classNames(params)}
-            >
+            <div className={classNames(params)}>
               <Provider globalStore={this.globalStore}>
                 <Outlet />
               </Provider>
-            </Layout>
+            </div>
           )}
         </ContainerQuery>
       </DocumentTitle>

@@ -36,6 +36,8 @@ module.exports = {
     '@typescript-eslint/no-var-requires': [0],
     'react/function-component-definition': [0],
     'react/jsx-props-no-spreading': [0],
+    'react/require-default-props': [0],
+    '@typescript-eslint/ban-ts-comment': [0],
     'no-undef': [0],
     'prettier/prettier': [
       2,

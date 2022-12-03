@@ -1,18 +1,30 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
+import { inject, observer, Provider } from 'mobx-react';
 import { Layout } from 'antd';
 import { Outlet } from 'react-router-dom';
 
-import { GlobalStore } from '../stores';
+import { GlobalStore, MenuStore } from '@/stores';
+import { withRouter, SiderMenu } from '@/components';
 
-const { Header, Content, Footer } = Layout;
+import Header from './Header';
 
-interface ConsoleLayoutProps {
+const { Content, Footer } = Layout;
+
+interface ConsoleLayoutProps extends RouterComponentProps {
   globalStore: GlobalStore;
 }
+
 @inject(...['globalStore'])
+@withRouter
 @observer
 export default class ConsoleLayout extends Component<ConsoleLayoutProps> {
+  menuStore: MenuStore;
+
+  constructor(props) {
+    super(props);
+    this.menuStore = new MenuStore(this);
+  }
+
   componentDidMount() {
     const {
       globalStore: { setDocumentTitle },
@@ -21,14 +33,23 @@ export default class ConsoleLayout extends Component<ConsoleLayoutProps> {
   }
 
   render() {
+    const {
+      globalStore: { isMobile, isTop },
+    } = this.props;
+
     return (
-      <>
-        <Header />
-        <Content>
-          <Outlet />
-        </Content>
-        <Footer />
-      </>
+      <Layout>
+        <Provider menuStore={this.menuStore}>
+          {isTop && !isMobile ? null : <SiderMenu />}
+          <Layout style={{ minHeight: '100vh' }}>
+            <Header />
+            <Content>
+              <Outlet />
+            </Content>
+            <Footer />
+          </Layout>
+        </Provider>
+      </Layout>
     );
   }
 }

@@ -10,12 +10,18 @@ export default class GlobalStore {
 
   locationHash = '';
 
+  layout: 'topmenu' | 'sidemenu' = 'sidemenu';
+
   constructor(node) {
-    this.setProps(node.props);
     makeAutoObservable(this);
+    this.setProps(node.props);
     autorun(() => {
       this.setAccessToken();
     });
+  }
+
+  get isTop(): boolean {
+    return this.layout === 'topmenu';
   }
 
   setProps = (props) => {
