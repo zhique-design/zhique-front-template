@@ -1,5 +1,8 @@
 import { MenuTheme } from 'antd';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
+
+import { queryMenuList } from '@/services/console';
+import { getResponseList } from '@/utils/utils';
 import GlobalStore from './GlobalStore';
 
 export default class MenuStore {
@@ -37,6 +40,15 @@ export default class MenuStore {
   get flatMenuKeys() {
     return this.getFlatMenuKeys(this.menuData);
   }
+
+  getMenuData = async () => {
+    const data = await queryMenuList({
+      level: 1,
+    });
+    runInAction(() => {
+      this.menuData = getResponseList(data);
+    });
+  };
 
   getFlatMenuKeys = (menus: Array<any>) => {
     let keys: Array<any> = [];

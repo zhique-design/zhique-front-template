@@ -3,6 +3,9 @@ import { Menu, MenuProps } from 'antd';
 import { Link } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 import { MenuStore } from '@/stores';
+import Icon from '../Icon';
+
+import styles from './index.module.less';
 
 interface BaseMenuProps extends MenuProps {
   menuStore?: MenuStore;
@@ -13,6 +16,16 @@ const conversionPath = (path) => {
     return path;
   }
   return `/${path || ''}`.replace(/\/+/g, '/');
+};
+
+const getIcon = (icon) => {
+  if (typeof icon === 'string' && icon.indexOf('http') === 0) {
+    return <img src={icon} alt="icon" className={styles.icon} />;
+  }
+  if (typeof icon === 'string') {
+    return <Icon type={icon} />;
+  }
+  return icon;
 };
 
 @inject(...['menuStore'])
@@ -37,7 +50,10 @@ export default class BaseMenu extends Component<BaseMenuProps> {
   getSubMenuOrItem = (item: any) => {
     if (item.children && item.children.some((child) => child.name)) {
       return (
-        <Menu.SubMenu key={item.path} title={item.name}>
+        <Menu.SubMenu
+          key={item.path}
+          title={item.icon ? getIcon(item.icon) : item.name}
+        >
           {this.getNavMenuItems(item.children)}
         </Menu.SubMenu>
       );
@@ -48,10 +64,12 @@ export default class BaseMenu extends Component<BaseMenuProps> {
   getMenuItemPath = (item) => {
     const itemPath = conversionPath(item.path);
     const { target } = item;
+    const icon = getIcon(item.icon);
     // Is it a http link
     if (/^https?:\/\//.test(itemPath)) {
       return (
         <a href={itemPath} target={target}>
+          {icon}
           <span>{item.name}</span>
         </a>
       );
@@ -66,6 +84,7 @@ export default class BaseMenu extends Component<BaseMenuProps> {
         replace={itemPath === pathname}
         onClick={() => setCollapsed(true)}
       >
+        {icon}
         <span>{item.name}</span>
       </Link>
     );

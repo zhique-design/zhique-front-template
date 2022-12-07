@@ -25,11 +25,13 @@ export default class ConsoleLayout extends Component<ConsoleLayoutProps> {
     this.menuStore = new MenuStore(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const {
       globalStore: { setDocumentTitle },
     } = this.props;
     setDocumentTitle('知雀-控制台');
+    const { getMenuData } = this.menuStore;
+    await getMenuData();
   }
 
   render() {
@@ -43,7 +45,7 @@ export default class ConsoleLayout extends Component<ConsoleLayoutProps> {
           {isTop && !isMobile ? null : <SiderMenu />}
           <Layout style={{ minHeight: '100vh' }}>
             <Header />
-            <Content>
+            <Content style={{ margin: 24 }}>
               <Outlet />
             </Content>
             <Footer />

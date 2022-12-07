@@ -39,6 +39,7 @@ module.exports = {
     'react/require-default-props': [0],
     '@typescript-eslint/ban-ts-comment': [0],
     'no-undef': [0],
+    'no-unused-vars': [0],
     'prettier/prettier': [
       2,
       {

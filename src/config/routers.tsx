@@ -15,6 +15,15 @@ const config: Array<RouterConfig> = [
       {
         path: '/console',
         component: lazy(() => import('@/layouts/ConsoleLayout')),
+        children: [
+          {
+            path: '/console/article/edit',
+            component: lazy(() => import('@/pages/Article/ArticleEdit')),
+          },
+        ],
+      },
+      {
+        component: lazy(() => import('@/pages/404')),
       },
     ],
   },
