@@ -30,8 +30,8 @@ export default class ConsoleLayout extends Component<ConsoleLayoutProps> {
       globalStore: { setDocumentTitle },
     } = this.props;
     setDocumentTitle('知雀-控制台');
-    const { getMenuData } = this.menuStore;
-    await getMenuData();
+    const { setMenuData } = this.menuStore;
+    await setMenuData();
   }
 
   render() {
