@@ -41,15 +41,6 @@ export default class MenuStore {
     return this.getFlatMenuKeys(this.menuData);
   }
 
-  getMenuData = async () => {
-    const data = await queryMenuList({
-      level: 1,
-    });
-    runInAction(() => {
-      this.menuData = getResponseList(data);
-    });
-  };
-
   getFlatMenuKeys = (menus: Array<any>) => {
     let keys: Array<any> = [];
     menus.forEach((item) => {
@@ -78,5 +69,14 @@ export default class MenuStore {
 
   setTheme = (theme: MenuTheme) => {
     this.theme = theme;
+  };
+
+  setMenuData = async () => {
+    const data = await queryMenuList({
+      level: 1,
+    });
+    runInAction(() => {
+      this.menuData = getResponseList(data);
+    });
   };
 }
