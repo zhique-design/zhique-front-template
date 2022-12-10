@@ -41,8 +41,14 @@ export default class ArticleEdit extends Component {
     });
   };
 
-  handleSubmit = (values) => {
-    return submitArticle(values);
+  handleSubmit = (values: any = {}) => {
+    const { id } = this.articleDetail;
+    const { category = [], ...rest } = values;
+    return submitArticle({
+      id,
+      categoryId: category[category.length - 1],
+      ...rest,
+    });
   };
 
   render() {

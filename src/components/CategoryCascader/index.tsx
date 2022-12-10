@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { action, makeObservable, observable, runInAction } from 'mobx';
-import { Cascader, CascaderProps } from 'antd';
+import { Button, Cascader, CascaderProps } from 'antd';
 
 import { Icon } from '@/components';
-import { queryCategoryList } from '@/services/blog/category';
+import { queryCategoryList, submitCategory } from '@/services/blog/category';
 import { getResponseList } from '@/utils/utils';
 
 import CategoryForm from './CategoryForm';
@@ -51,6 +51,16 @@ export default class CategoryCascader extends Component<
     this.setModalOpen(true);
   };
 
+  handleSubmit = async (values: any) => {
+    const data: any = (await submitCategory(values)) || {};
+    this.setModalOpen(false);
+    const { onChange } = this.props;
+    if (onChange) {
+      onChange(data.tree, data);
+    }
+    await this.setCategoryList();
+  };
+
   handleCancel = () => {
     this.setModalOpen(false);
   };
@@ -63,12 +73,16 @@ export default class CategoryCascader extends Component<
           loading={this.loading}
           fieldNames={{ label: 'name', value: 'id', children: 'children' }}
           options={this.categoryList}
-          style={{ flex: '1 1', marginRight: 20 }}
+          style={{ flex: '1 1' }}
         />
-        <CategoryForm open={this.modalOpen} onCancel={this.handleCancel} />
-        <a onClick={this.handleAdd}>
+        <CategoryForm
+          open={this.modalOpen}
+          onCancel={this.handleCancel}
+          onSubmit={this.handleSubmit}
+        />
+        <Button type="link" onClick={this.handleAdd}>
           <Icon type="plus" /> 新增分类
-        </a>
+        </Button>
       </div>
     );
   }
