@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { MarkdownEditor } from 'zhique-editor';
-import { Button, Card, Form, Input, Spin } from 'antd';
+import { Button, Card, Form, Input } from 'antd';
 import {
   computed,
   makeObservable,
@@ -29,8 +29,6 @@ export default class ArticleEdit extends Component<RouterComponentProps> {
 
   loading = false;
 
-  submitting = false;
-
   disposer: IReactionDisposer;
 
   constructor(props) {
@@ -38,7 +36,6 @@ export default class ArticleEdit extends Component<RouterComponentProps> {
     makeObservable(this, {
       articleDetail: observable,
       loading: observable,
-      submitting: observable,
       articleId: computed,
     });
     this.disposer = reaction(() => this.articleId, this.setArticleDetail, {
@@ -73,7 +70,7 @@ export default class ArticleEdit extends Component<RouterComponentProps> {
 
   handleSubmit = async (values: any = {}) => {
     runInAction(() => {
-      this.submitting = true;
+      this.loading = true;
     });
     const { id } = this.articleDetail;
     const { category = [], ...rest } = values;
@@ -81,9 +78,6 @@ export default class ArticleEdit extends Component<RouterComponentProps> {
       id,
       categoryId: category[category.length - 1],
       ...rest,
-    });
-    runInAction(() => {
-      this.submitting = false;
     });
     await this.setArticleDetail(this.articleId);
   };
@@ -105,69 +99,67 @@ export default class ArticleEdit extends Component<RouterComponentProps> {
     const { title, category, tagList, body } = this.articleDetail;
 
     return (
-      <Card bordered={false} loading={this.loading}>
-        <Spin spinning={this.submitting}>
-          <Form onFinish={this.handleSubmit}>
-            <FormItem
-              {...formItemLayout}
-              label="文章标题"
-              name="title"
-              rules={[{ required: true, message: '请输入文章标题' }]}
-              initialValue={title}
-            >
-              <Input placeholder="请输入文章标题" />
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="文章分类"
-              name="category"
-              rules={[{ required: true, message: '请选择文章分类' }]}
-              initialValue={category?.tree}
-            >
-              <CategoryCascader placeholder="请选择文章分类" />
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="文章标签"
-              name="tags"
-              initialValue={tagList?.map(({ id }) => id)}
-            >
-              <TagSelect expandable />
-            </FormItem>
-            <FormItem
-              {...formItemLayout}
-              label="文章内容"
-              name="body"
-              rules={[{ required: true, message: '请输入文章内容' }]}
-              initialValue={body}
-            >
-              <MarkdownEditor
-                cmOptions={{
-                  mode: 'gfm',
-                  theme: 'default',
-                  lineWrapping: true,
-                  lineNumbers: true,
-                  foldGutter: true,
-                  gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
-                  matchBrackets: true,
-                  autofocus: true,
-                  autoCloseBrackets: true,
-                  matchTags: true,
-                  autoCloseTags: true,
-                  styleActiveLine: true,
-                  styleSelectedText: true,
-                }}
-                width="100%"
-              />
-            </FormItem>
-            <Form.Item wrapperCol={{ offset: 10, span: 14 }}>
-              <Button style={{ marginRight: 20 }}>取消</Button>
-              <Button type="primary" htmlType="submit">
-                保存
-              </Button>
-            </Form.Item>
-          </Form>
-        </Spin>
+      <Card loading={this.loading} bordered={false}>
+        <Form onFinish={this.handleSubmit}>
+          <FormItem
+            {...formItemLayout}
+            label="文章标题"
+            name="title"
+            rules={[{ required: true, message: '请输入文章标题' }]}
+            initialValue={title}
+          >
+            <Input placeholder="请输入文章标题" />
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="文章分类"
+            name="category"
+            rules={[{ required: true, message: '请选择文章分类' }]}
+            initialValue={category?.tree}
+          >
+            <CategoryCascader placeholder="请选择文章分类" />
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="文章标签"
+            name="tags"
+            initialValue={tagList?.map(({ id }) => id)}
+          >
+            <TagSelect expandable />
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="文章内容"
+            name="body"
+            rules={[{ required: true, message: '请输入文章内容' }]}
+            initialValue={body}
+          >
+            <MarkdownEditor
+              cmOptions={{
+                mode: 'gfm',
+                theme: 'default',
+                lineWrapping: true,
+                lineNumbers: true,
+                foldGutter: true,
+                gutters: ['CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
+                matchBrackets: true,
+                autofocus: true,
+                autoCloseBrackets: true,
+                matchTags: true,
+                autoCloseTags: true,
+                styleActiveLine: true,
+                styleSelectedText: true,
+              }}
+              width="100%"
+            />
+          </FormItem>
+          <Form.Item wrapperCol={{ offset: 10, span: 14 }}>
+            <Button style={{ marginRight: 20 }}>取消</Button>
+            <Button type="primary" htmlType="submit">
+              保存
+            </Button>
+          </Form.Item>
+        </Form>
       </Card>
     );
   }
