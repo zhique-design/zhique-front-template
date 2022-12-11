@@ -84,7 +84,7 @@ export default class ArticleEdit extends Component {
             label="文章分类"
             name="category"
             rules={[{ required: true, message: '请选择文章分类' }]}
-            initialValue={[...(category?.tree || [])]}
+            initialValue={category?.tree}
           >
             <CategoryCascader placeholder="请选择文章分类" />
           </FormItem>
@@ -122,7 +122,7 @@ export default class ArticleEdit extends Component {
               width="100%"
             />
           </FormItem>
-          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+          <Form.Item wrapperCol={{ offset: 10, span: 14 }}>
             <Button style={{ marginRight: 20 }}>取消</Button>
             <Button type="primary" htmlType="submit">
               保存

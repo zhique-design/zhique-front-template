@@ -102,7 +102,7 @@ export default class TagSelect extends Component<TagSelectProps> {
 
   handleChange = (keys: Array<string>) => {
     const { onChange } = this.props;
-    if (onChange) onChange([...keys]);
+    if (onChange) onChange(keys);
   };
 
   handleAdd = (e) => {
