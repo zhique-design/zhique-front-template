@@ -10,7 +10,7 @@ import 'codemirror/lib/codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/gfm/gfm';
 
-import { CategoryCascader } from '@/components';
+import { CategoryCascader, TagSelect } from '@/components';
 import { queryArticleById, submitArticle } from '@/services/blog/article';
 
 const FormItem = Form.Item;
@@ -41,7 +41,7 @@ export default class ArticleEdit extends Component {
     });
   };
 
-  handleSubmit = (values: any = {}) => {
+  handleSubmit = async (values: any = {}) => {
     const { id } = this.articleDetail;
     const { category = [], ...rest } = values;
     return submitArticle({
@@ -84,9 +84,12 @@ export default class ArticleEdit extends Component {
             label="文章分类"
             name="category"
             rules={[{ required: true, message: '请选择文章分类' }]}
-            initialValue={category?.tree}
+            initialValue={[...(category?.tree || [])]}
           >
             <CategoryCascader placeholder="请选择文章分类" />
+          </FormItem>
+          <FormItem {...formItemLayout} label="文章分类" name="tags">
+            <TagSelect expandable />
           </FormItem>
           <FormItem
             {...formItemLayout}

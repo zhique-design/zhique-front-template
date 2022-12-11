@@ -24,6 +24,7 @@ export default class CategoryCascader extends Component<
     makeObservable(this, {
       categoryList: observable,
       modalOpen: observable,
+      loading: observable,
       setModalOpen: action,
     });
   }
@@ -53,12 +54,12 @@ export default class CategoryCascader extends Component<
 
   handleSubmit = async (values: any) => {
     const data: any = (await submitCategory(values)) || {};
-    this.setModalOpen(false);
     const { onChange } = this.props;
     if (onChange) {
       onChange(data.tree, data);
     }
     await this.setCategoryList();
+    this.setModalOpen(false);
   };
 
   handleCancel = () => {
