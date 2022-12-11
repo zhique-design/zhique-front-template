@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Location } from '@remix-run/router';
+import { Location, Params } from '@remix-run/router';
 // eslint-disable-next-line import/no-unresolved
 import { NavigateFunction } from 'react-router/dist/lib/hooks';
 
@@ -17,5 +17,6 @@ declare global {
   declare interface RouterComponentProps {
     location: Location;
     navigate: NavigateFunction;
+    params: Params;
   }
 }

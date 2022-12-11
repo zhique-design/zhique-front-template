@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 
 function withRouter<T extends RouterComponentProps>(
   Component: React.ComponentType<T>
@@ -10,6 +10,7 @@ function withRouter<T extends RouterComponentProps>(
         {...(props as T)}
         location={useLocation()}
         navigate={useNavigate()}
+        params={useParams()}
       />
     );
   }

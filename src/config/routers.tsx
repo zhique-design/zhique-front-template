@@ -17,7 +17,7 @@ const config: Array<RouterConfig> = [
         component: lazy(() => import('@/layouts/ConsoleLayout')),
         children: [
           {
-            path: '/console/article/edit',
+            path: '/console/article/edit/:articleId',
             component: lazy(() => import('@/pages/Article/ArticleEdit')),
           },
         ],

@@ -133,6 +133,8 @@ export default class TagSelect extends Component<TagSelectProps> {
       if (index !== -1) {
         runInAction(() => {
           this.selectedKeys.splice(index, 1);
+          const { onChange } = this.props;
+          if (onChange) onChange(this.selectedKeys);
         });
       }
     }
