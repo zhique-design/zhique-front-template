@@ -65,7 +65,7 @@ export default class ArticleEdit extends Component {
       },
     };
 
-    const { title, category, body } = this.articleDetail;
+    const { title, category, tagList, body } = this.articleDetail;
 
     return (
       <Card bordered={false} loading={this.loading}>
@@ -88,7 +88,12 @@ export default class ArticleEdit extends Component {
           >
             <CategoryCascader placeholder="请选择文章分类" />
           </FormItem>
-          <FormItem {...formItemLayout} label="文章分类" name="tags">
+          <FormItem
+            {...formItemLayout}
+            label="文章标签"
+            name="tags"
+            initialValue={tagList?.map(({ id }) => id)}
+          >
             <TagSelect expandable />
           </FormItem>
           <FormItem

@@ -95,7 +95,7 @@ export default class TagSelect extends Component<TagSelectProps> {
   setTagList = async () => {
     const data = await queryTagList();
     runInAction(() => {
-      this.tagList = getResponseList(data);
+      this.tagList = getResponseList(data) || [];
       this.loading = false;
     });
   };
@@ -174,7 +174,8 @@ export default class TagSelect extends Component<TagSelectProps> {
               {name}
             </CheckableTag>
           ))}
-          <Tag
+          <CheckableTag
+            checked={false}
             onClick={this.handleAdd}
             style={{
               backgroundColor: '#fff',
@@ -183,7 +184,7 @@ export default class TagSelect extends Component<TagSelectProps> {
             }}
           >
             <Icon type="plus" /> 新增标签
-          </Tag>
+          </CheckableTag>
           {expandable && (
             <Button
               className={styles.trigger}
