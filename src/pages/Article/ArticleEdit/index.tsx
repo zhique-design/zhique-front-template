@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { MarkdownEditor } from 'zhique-editor';
-import { Button, Card, Form, Input } from 'antd';
+import { Button, Card, Form, Input, message } from 'antd';
 import {
   computed,
   makeObservable,
@@ -74,12 +74,28 @@ export default class ArticleEdit extends Component<RouterComponentProps> {
     });
     const { id } = this.articleDetail;
     const { category = [], ...rest } = values;
-    await submitArticle({
-      id,
-      categoryId: category[category.length - 1],
-      ...rest,
-    });
-    await this.setArticleDetail(this.articleId);
+    const data: any =
+      (await submitArticle({
+        id,
+        categoryId: category[category.length - 1],
+        ...rest,
+      })) || {};
+    if (id) {
+      await this.setArticleDetail(id);
+    } else if (data.id) {
+      runInAction(() => {
+        this.loading = false;
+      });
+      message.success({
+        content: (
+          <span>
+            文章发表成功,{' '}
+            <a href={`/console/article/edit/${data.id}`}>查看详情</a>
+          </span>
+        ),
+        duration: 5000,
+      });
+    }
   };
 
   render() {

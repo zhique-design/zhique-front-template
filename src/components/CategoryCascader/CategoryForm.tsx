@@ -21,10 +21,12 @@ const CategoryForm: React.FC<CategoryFormProps> = observer(
         const data = await queryCategoryList();
         setCategoryList(getResponseList(data));
       }
-      getCategoryList().then(() => {
-        setLoading(false);
-      });
-    }, []);
+      if (open) {
+        getCategoryList().then(() => {
+          setLoading(false);
+        });
+      }
+    }, [open]);
     const [form] = Form.useForm();
     return (
       <Modal
