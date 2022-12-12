@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import { isEmpty } from 'lodash';
 import {
   action,
   computed,
@@ -13,7 +14,7 @@ import { Button, Spin, Tag } from 'antd';
 import classNames from 'classnames';
 
 import { Icon } from '@/components';
-import { queryTagList } from '@/services/blog/tag';
+import { queryTagList, submitTag } from '@/services/blog/tag';
 import { getResponseList } from '@/utils/utils';
 import TagForm from './TagForm';
 
@@ -75,8 +76,9 @@ export default class TagSelect extends Component<TagSelectProps> {
 
   get checkAll(): boolean {
     return (
+      !isEmpty(this.tagKeys) &&
       this.tagKeys.filter((key) => !this.selectedKeys.includes(key)).length ===
-      0
+        0
     );
   }
 
@@ -116,7 +118,8 @@ export default class TagSelect extends Component<TagSelectProps> {
   };
 
   handleSubmit = async (values) => {
-    console.log(values);
+    const data: any = (await submitTag(values)) || {};
+    this.setSelectedKeys([...this.selectedKeys, data.id]);
     await this.setTagList();
     this.setModalOpen(false);
   };

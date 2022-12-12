@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { observer } from 'mobx-react';
-import { Form, Input, Modal } from 'antd';
+import { Form, Input, Modal, Tag } from 'antd';
 import { SketchPicker } from 'react-color';
+
+import styles from './index.module.less';
 
 interface TagFormProps {
   open?: boolean;
@@ -11,6 +13,8 @@ interface TagFormProps {
 
 const TagForm: React.FC<TagFormProps> = observer(
   ({ open, onSubmit, onCancel }) => {
+    const [visible, setVisible] = useState<boolean>(false);
+    const [color, setColor] = useState<string>('');
     const [form] = Form.useForm();
     return (
       <Modal
@@ -21,7 +25,7 @@ const TagForm: React.FC<TagFormProps> = observer(
         onOk={() => {
           form.validateFields().then((values) => {
             form.resetFields();
-            if (onSubmit) onSubmit(values);
+            if (onSubmit) onSubmit({ ...values, color });
           });
         }}
         onCancel={onCancel}
@@ -35,7 +39,28 @@ const TagForm: React.FC<TagFormProps> = observer(
             <Input placeholder="请输入标签名称" />
           </Form.Item>
           <Form.Item name="color" label="标签颜色">
-            <SketchPicker />
+            <div className={styles.colorPickerWrapper}>
+              {visible ? (
+                <>
+                  <div
+                    className={styles.colorPickerCover}
+                    onClick={() => setVisible(false)}
+                  />
+                  <SketchPicker
+                    onChange={(value) => setColor(value.hex)}
+                    color={color}
+                  />
+                </>
+              ) : (
+                <Tag
+                  color={color}
+                  onClick={() => setVisible(true)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {color || '默认'}
+                </Tag>
+              )}
+            </div>
           </Form.Item>
         </Form>
       </Modal>
