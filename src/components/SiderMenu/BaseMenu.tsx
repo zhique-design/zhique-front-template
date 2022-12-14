@@ -76,14 +76,9 @@ export default class BaseMenu extends Component<BaseMenuProps> {
     }
     const { menuStore } = this.props;
     if (!menuStore) return null;
-    const { pathname, setCollapsed } = menuStore;
+    const { pathname } = menuStore;
     return (
-      <Link
-        to={itemPath}
-        target={target}
-        replace={itemPath === pathname}
-        onClick={() => setCollapsed(true)}
-      >
+      <Link to={itemPath} target={target} replace={itemPath === pathname}>
         {icon}
         <span>{item.name}</span>
       </Link>

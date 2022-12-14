@@ -1,0 +1,72 @@
+@import '~antd/lib/style/themes/default.less';
+
+.articleList {
+  .articleItem {
+    background: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    &:not(:last-child) {
+      margin-bottom: 15px;
+    }
+
+    a.articleTitle {
+      color: @text-color;
+      font-size: 16px;
+      font-weight: 600;
+
+      &:hover {
+        color: @text-color-secondary;
+      }
+    }
+
+    .articleTag {
+      margin: 15px 0;
+    }
+
+    article.articleContent {
+      ul {
+        padding-left: revert;
+        margin-bottom: revert;
+      }
+    }
+
+    .extra {
+      font-size: 12px;
+      margin-top: 15px;
+
+      & > em {
+        & > i {
+          font-size: 12px;
+        }
+
+        & > span {
+          margin-left: 5px;
+
+          &:not(:last-child) {
+            margin-right: 15px;
+          }
+
+          & > a {
+            color: @text-color;
+
+            &:hover {
+              color: @text-color-secondary;
+            }
+          }
+        }
+      }
+    }
+
+    .actions {
+      margin-left: .15rem;
+
+      .action {
+        &:not(:last-child) {
+          margin-right: .05rem;
+        }
+      }
+    }
+  }
+}

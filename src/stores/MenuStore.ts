@@ -72,9 +72,7 @@ export default class MenuStore {
   };
 
   setMenuData = async () => {
-    const data = await queryMenuList({
-      level: 1,
-    });
+    const data = await queryMenuList();
     runInAction(() => {
       this.menuData = getResponseList(data);
     });

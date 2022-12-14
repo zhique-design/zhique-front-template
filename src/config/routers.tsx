@@ -17,12 +17,20 @@ const config: Array<RouterConfig> = [
         component: lazy(() => import('@/layouts/ConsoleLayout')),
         children: [
           {
-            path: '/console/article/edit',
-            component: lazy(() => import('@/pages/Article/ArticleEdit')),
+            path: '/console/blog/article',
+            redirect: '/console/blog/article/list',
           },
           {
-            path: '/console/article/edit/:articleId',
-            component: lazy(() => import('@/pages/Article/ArticleEdit')),
+            path: '/console/blog/article/list',
+            component: lazy(() => import('@/pages/Console/Blog/Article/List')),
+          },
+          {
+            path: '/console/blog/article/edit',
+            component: lazy(() => import('@/pages/Console/Blog/Article/Edit')),
+          },
+          {
+            path: '/console/blog/article/edit/:articleId',
+            component: lazy(() => import('@/pages/Console/Blog/Article/Edit')),
           },
         ],
       },
