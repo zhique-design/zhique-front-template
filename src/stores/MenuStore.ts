@@ -1,7 +1,7 @@
 import { MenuTheme } from 'antd';
 import { makeAutoObservable, runInAction } from 'mobx';
 
-import { queryMenuList } from '@/services/console';
+import { queryMenuList } from '@/services/console/menu';
 import { getResponseList } from '@/utils/utils';
 import GlobalStore from './GlobalStore';
 
