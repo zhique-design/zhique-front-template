@@ -1,0 +1,36 @@
+@import '~antd/lib/style/themes/default.less';
+
+.list {
+  :global {
+    .ant-list-item {
+      display: block;
+    }
+
+    .ant-list-item:first-child {
+      padding-top: 0;
+    }
+  }
+}
+
+a.listItemMetaTitle {
+  color: @heading-color;
+}
+
+.listContent {
+  display: flex;
+  align-items: center;
+
+  .description {
+    flex: 1 1;
+  }
+
+  .extra {
+    margin-left: .1rem;
+
+    & > span {
+      &:not(:last-child) {
+        margin-right: .05rem;
+      }
+    }
+  }
+}

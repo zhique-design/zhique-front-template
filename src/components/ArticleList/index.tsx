@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Col, Row, Spin, Tag } from 'antd';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
@@ -12,11 +12,10 @@ interface ArticleListProps {
   className?: string;
   articleList?: Array<any>;
   loading?: boolean;
-  actions?: (data: any) => Array<ReactNode>;
 }
 
 const ArticleList: React.FC<ArticleListProps> = observer(
-  ({ className, articleList, loading, actions }) => (
+  ({ className, articleList, loading }) => (
     <Spin spinning={loading}>
       <Row className={classNames(className, styles.articleList)}>
         {articleList?.map((item) => {
@@ -58,12 +57,6 @@ const ArticleList: React.FC<ArticleListProps> = observer(
                   </div>
                 </section>
               </div>
-              {actions &&
-                actions(item).map((action, index) => (
-                  <span key={`action-${index}`} className={styles.action}>
-                    {action}
-                  </span>
-                ))}
             </Col>
           );
         })}
