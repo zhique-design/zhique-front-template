@@ -1,10 +1,10 @@
 import React, { Component, ReactNode } from 'react';
 import { observer } from 'mobx-react';
 import {
+  IReactionDisposer,
   action,
   makeObservable,
   observable,
-  IReactionDisposer,
   reaction,
   runInAction,
 } from 'mobx';
@@ -75,7 +75,7 @@ export default class ArticleList extends Component<RouterComponentProps> {
     });
     const data: any = (await queryArticleList(params)) || {};
     runInAction(() => {
-      this.articleList = getResponseList(data) || {};
+      this.articleList = getResponseList(data);
       this.totalCount = data.count || 0;
       this.loading = false;
     });

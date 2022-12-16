@@ -32,6 +32,14 @@ const config: Array<RouterConfig> = [
             path: '/console/blog/article/edit/:articleId',
             component: lazy(() => import('@/pages/Console/Blog/Article/Edit')),
           },
+          {
+            path: '/console/blog/category',
+            redirect: '/console/blog/category/list',
+          },
+          {
+            path: '/console/blog/category/list',
+            component: lazy(() => import('@/pages/Console/Blog/Category/List')),
+          },
         ],
       },
       {
