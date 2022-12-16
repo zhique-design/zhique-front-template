@@ -20,13 +20,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-    'jsx-a11y',
-    'prettier',
-    'simple-import-sort',
-  ],
+  plugins: ['react', '@typescript-eslint', 'jsx-a11y', 'prettier'],
   settings: {
     'import/resolver': {
       webpack: {
@@ -51,10 +45,6 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': [0],
     'no-undef': [0],
     'no-unused-vars': [0],
-    'sort-imports': [0],
-    'import/order': [0],
-    'simple-import-sort/imports': [2],
-    'simple-import-sort/exports': [2],
     'prettier/prettier': [
       2,
       {
