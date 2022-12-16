@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import { observer } from 'mobx-react';
+import { Button, Space, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { Table } from 'antd';
-
-import { queryCategoryList } from '@/services/console/blog/category';
 import {
-  IReactionDisposer,
   action,
+  IReactionDisposer,
   makeObservable,
   observable,
   reaction,
   runInAction,
 } from 'mobx';
+import { observer } from 'mobx-react';
+import React, { Component } from 'react';
+
+import { queryCategoryList } from '@/services/console/blog/category';
 import { getResponseList } from '@/utils/utils';
 
 interface Category {
@@ -28,6 +28,7 @@ export default class CategoryList extends Component {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
+      align: 'center',
     },
     {
       title: '分类名称',
@@ -38,6 +39,16 @@ export default class CategoryList extends Component {
       title: '分类路径',
       dataIndex: 'path',
       key: 'path',
+    },
+    {
+      title: '操作',
+      key: 'action',
+      align: 'center',
+      render: () => (
+        <Space>
+          <Button type="link">编辑</Button>
+        </Space>
+      ),
     },
   ];
 
