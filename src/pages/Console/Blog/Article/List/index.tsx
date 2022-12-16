@@ -13,7 +13,7 @@ import { Button, Card, List, Skeleton, Tag } from 'antd';
 import { Icon, withRouter } from '@/components';
 
 import { queryArticleList } from '@/services/blog/article';
-import { getResponseList } from '@/utils/utils';
+import { defaultPagination, getResponseList } from '@/utils/utils';
 import { Link } from 'react-router-dom';
 
 import moment from 'moment/moment';
@@ -160,16 +160,10 @@ export default class ArticleList extends Component<RouterComponentProps> {
             </List.Item>
           )}
           pagination={{
+            ...defaultPagination,
             current: this.page,
             pageSize: this.pageSize,
             disabled: this.loading,
-            pageSizeOptions: ['5', '10', '20', '50', '100'],
-            showQuickJumper: true,
-            showSizeChanger: true,
-            locale: {
-              items_per_page: '条/页',
-            },
-            showTotal: (total) => `共 ${total} 页`,
             total: this.totalCount,
             onChange: this.setPageSize,
             onShowSizeChange: this.setPageSize,

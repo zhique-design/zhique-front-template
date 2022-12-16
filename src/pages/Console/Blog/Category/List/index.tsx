@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import { Button, Space, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import {
@@ -9,10 +10,9 @@ import {
   runInAction,
 } from 'mobx';
 import { observer } from 'mobx-react';
-import React, { Component } from 'react';
 
 import { queryCategoryList } from '@/services/console/blog/category';
-import { getResponseList } from '@/utils/utils';
+import { defaultPagination, getResponseList } from '@/utils/utils';
 
 interface Category {
   id: number;
@@ -112,16 +112,10 @@ export default class CategoryList extends Component {
         columns={this.columns}
         rowKey="id"
         pagination={{
+          ...defaultPagination,
           current: this.page,
           pageSize: this.pageSize,
           disabled: this.loading,
-          pageSizeOptions: ['5', '10', '20', '50', '100'],
-          showQuickJumper: true,
-          showSizeChanger: true,
-          locale: {
-            items_per_page: '条/页',
-          },
-          showTotal: (total) => `共 ${total} 页`,
           total: this.totalCount,
           onChange: this.setPageSize,
           onShowSizeChange: this.setPageSize,
