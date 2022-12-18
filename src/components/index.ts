@@ -6,3 +6,5 @@ export { default as Icon } from './Icon';
 export { default as CategoryCascader } from './CategoryCascader';
 export { default as TagSelect } from './TagSelect';
 export { default as ArticleList } from './ArticleList';
+export { default as CategorySelect } from './CategorySelect';
+export { default as CategoryForm } from './CategoryForm';

@@ -11,8 +11,6 @@ module.exports = {
     'airbnb',
     'airbnb/hooks',
     'plugin:prettier/recommended',
-    'plugin:import/recommended',
-    'plugin:import/typescript',
   ],
   overrides: [],
   parser: '@typescript-eslint/parser',

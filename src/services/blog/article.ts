@@ -2,14 +2,14 @@ import request from '@/utils/request';
 
 const BASE_URL = '/v1/blog';
 
-export async function queryArticleList(params?) {
+export async function queryArticleList(params?): Promise<any> {
   return request(`${BASE_URL}/articles`, {
     method: 'GET',
     params,
   });
 }
 
-export async function queryArticleById(id) {
+export async function queryArticleById(id): Promise<any> {
   return request(`${BASE_URL}/articles/${id}`, {
     method: 'GET',
   });

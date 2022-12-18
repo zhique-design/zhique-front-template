@@ -1,32 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Input, Select, Modal } from 'antd';
+import React from 'react';
+import { Form, Input, Modal } from 'antd';
 import { observer } from 'mobx-react';
-import { queryCategoryList } from '@/services/blog/category';
-import { getResponseList } from '@/utils/utils';
+import CategorySelect from '../CategorySelect';
 
 const FormItem = Form.Item;
 
 interface CategoryFormProps {
   open?: boolean;
+
+  parentCategory?: Category;
   onCancel?: () => void;
   onSubmit?: (value: any) => void;
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = observer(
   ({ open, onSubmit, onCancel }) => {
-    const [categoryList, setCategoryList] = useState<any>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    useEffect(() => {
-      async function getCategoryList() {
-        const data = await queryCategoryList();
-        setCategoryList(getResponseList(data));
-      }
-      if (open) {
-        getCategoryList().then(() => {
-          setLoading(false);
-        });
-      }
-    }, [open]);
     const [form] = Form.useForm();
     return (
       <Modal
@@ -51,13 +39,7 @@ const CategoryForm: React.FC<CategoryFormProps> = observer(
             <Input placeholder="请输入分类名称" />
           </FormItem>
           <FormItem name="parentCategory" label="父级分类">
-            <Select placeholder="请选择父级分类" loading={loading}>
-              {categoryList.map(({ id, name }) => (
-                <Select.Option value={id} key={id}>
-                  {name}
-                </Select.Option>
-              ))}
-            </Select>
+            <CategorySelect placeholder="请选择父级分类" />
           </FormItem>
         </Form>
       </Modal>

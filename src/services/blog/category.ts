@@ -2,14 +2,14 @@ import request from '@/utils/request';
 
 const BASE_URL = '/v1/blog';
 
-export async function queryCategoryList(params?) {
+export async function queryCategoryList(params?): Promise<any> {
   return request(`${BASE_URL}/categories`, {
     method: 'GET',
     params,
   });
 }
 
-export async function submitCategory(params) {
+export async function submitCategory(params): Promise<any> {
   const { id } = params;
   if (id) {
     return request(`${BASE_URL}/categories/${id}`, {

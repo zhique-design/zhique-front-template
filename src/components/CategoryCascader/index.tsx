@@ -7,7 +7,7 @@ import { Icon } from '@/components';
 import { queryCategoryList, submitCategory } from '@/services/blog/category';
 import { getResponseList } from '@/utils/utils';
 
-import CategoryForm from './CategoryForm';
+import CategoryForm from '../CategoryForm';
 
 @observer
 export default class CategoryCascader extends Component<

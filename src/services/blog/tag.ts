@@ -2,14 +2,14 @@ import request from '@/utils/request';
 
 const BASE_URL = '/v1/blog';
 
-export async function queryTagList(params?) {
+export async function queryTagList(params?): Promise<any> {
   return request(`${BASE_URL}/tags`, {
     method: 'GET',
     params,
   });
 }
 
-export async function submitTag(params) {
+export async function submitTag(params): Promise<any> {
   const { id } = params;
   if (id) {
     return request(`${BASE_URL}/tags/${id}`, {

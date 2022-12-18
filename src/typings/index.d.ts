@@ -19,4 +19,18 @@ declare global {
     navigate: NavigateFunction;
     params: Params;
   }
+
+  declare type ResponseWithPagination<T> = {
+    count: number;
+    result: Array<T>;
+  };
+
+  declare type ResponseWithoutPagination<T> = Array<T> | T;
+
+  declare interface Category {
+    id?: number;
+    name: string;
+    path?: string;
+    children?: Array<Category>;
+  }
 }
