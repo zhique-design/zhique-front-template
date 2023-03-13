@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Modal } from 'antd';
 import { observer } from 'mobx-react';
 import CategorySelect from '../CategorySelect';
@@ -7,21 +7,33 @@ const FormItem = Form.Item;
 
 interface CategoryFormProps {
   open?: boolean;
-
-  parentCategory?: Category;
   onCancel?: () => void;
   onSubmit?: (value: any) => void;
+
+  currentCategory?: Category;
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = observer(
-  ({ open, onSubmit, onCancel }) => {
+  ({ open, onSubmit, onCancel, currentCategory }) => {
     const [form] = Form.useForm();
+    useEffect(() => {
+      form.setFieldsValue({
+        id: currentCategory?.id,
+        name: currentCategory?.name,
+        parentCategory: {
+          value: currentCategory?.parent?.id,
+          label: currentCategory?.parent?.name,
+        },
+      });
+    }, [currentCategory, form]);
     return (
       <Modal
         open={open}
         title="新增文章分类"
         okText="确定"
         cancelText="取消"
+        destroyOnClose
+        forceRender
         onOk={() => {
           form.validateFields().then((values) => {
             form.resetFields();
@@ -31,8 +43,10 @@ const CategoryForm: React.FC<CategoryFormProps> = observer(
         onCancel={onCancel}
       >
         <Form form={form} layout="vertical">
+          <FormItem name="id" />
           <FormItem
             name="name"
+            required
             label="分类名称"
             rules={[{ required: true, message: '请输入分类名称' }]}
           >

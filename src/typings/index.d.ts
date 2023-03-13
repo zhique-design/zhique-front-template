@@ -32,5 +32,6 @@ declare global {
     name: string;
     path?: string;
     children?: Array<Category>;
+    parent?: Pick<Category>;
   }
 }

@@ -11,7 +11,11 @@ import {
 } from 'mobx';
 import { observer } from 'mobx-react';
 
-import { queryCategoryList } from '@/services/console/blog/category';
+import {
+  deleteCategory,
+  queryCategoryList,
+  submitCategory,
+} from '@/services/console/blog/category';
 import { defaultPagination, getResponseList } from '@/utils/utils';
 import { CategoryForm } from '@/components';
 
@@ -37,11 +41,15 @@ export default class CategoryList extends Component {
     {
       title: '操作',
       key: 'action',
+      dataIndex: 'id',
       align: 'center',
-      render: () => (
+      render: (_, record) => (
         <Space>
-          <Button type="link" onClick={this.handleEdit}>
+          <Button type="link" onClick={() => this.handleEdit(record)}>
             编辑
+          </Button>
+          <Button type="link" onClick={() => this.handleDelete(record)}>
+            删除
           </Button>
         </Space>
       ),
@@ -60,6 +68,8 @@ export default class CategoryList extends Component {
 
   modalOpen = false;
 
+  currentCaCategory?: Category = undefined;
+
   disposer: IReactionDisposer;
 
   constructor(props) {
@@ -69,9 +79,11 @@ export default class CategoryList extends Component {
       loading: observable,
       page: observable,
       pageSize: observable,
+      currentCaCategory: observable,
       modalOpen: observable,
       setPageSize: action,
       setModalOpen: action,
+      setCurrentCategory: action,
     });
     this.disposer = reaction(
       () => ({
@@ -87,13 +99,14 @@ export default class CategoryList extends Component {
     this.disposer();
   }
 
-  setCategoryList = async (params) => {
+  setCategoryList = async () => {
     runInAction(() => {
       this.loading = true;
     });
-    const data: ResponseWithPagination<Category> = await queryCategoryList(
-      params
-    );
+    const data: ResponseWithPagination<Category> = await queryCategoryList({
+      page: this.page,
+      pageSize: this.pageSize,
+    });
     runInAction(() => {
       this.categoryList = getResponseList(data);
       this.totalCount = data.count || 0;
@@ -110,9 +123,26 @@ export default class CategoryList extends Component {
     this.modalOpen = open;
   };
 
-  handleEdit = (e) => {
-    e.preventDefault();
+  setCurrentCategory = (category: Category) => {
+    this.currentCaCategory = category;
+  };
+
+  handleEdit = (record: Category) => {
+    this.setCurrentCategory(record);
     this.setModalOpen(true);
+  };
+
+  handleSubmit = async (category: Category) => {
+    return submitCategory(category).then(() => {
+      this.setModalOpen(false);
+      this.setCategoryList();
+    });
+  };
+
+  handleDelete = async (record: Category) => {
+    return deleteCategory(record.id).then(() => {
+      this.setCategoryList();
+    });
   };
 
   handleCancel = () => {
@@ -137,7 +167,12 @@ export default class CategoryList extends Component {
             onShowSizeChange: this.setPageSize,
           }}
         />
-        <CategoryForm open={this.modalOpen} onCancel={this.handleCancel} />
+        <CategoryForm
+          open={this.modalOpen}
+          onCancel={this.handleCancel}
+          currentCategory={this.currentCaCategory}
+          onSubmit={this.handleSubmit}
+        />
       </>
     );
   }

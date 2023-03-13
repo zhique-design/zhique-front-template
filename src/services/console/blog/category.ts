@@ -22,3 +22,12 @@ export async function submitCategory(params): Promise<any> {
     data: params,
   });
 }
+
+export async function deleteCategory(id): Promise<any> {
+  if (id) {
+    return request(`${BASE_URL}/categories/${id}`, {
+      method: 'DELETE',
+    });
+  }
+  return Promise.reject();
+}
