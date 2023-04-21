@@ -34,10 +34,11 @@ const CategoryForm: React.FC<CategoryFormProps> = observer(
         cancelText="取消"
         destroyOnClose
         forceRender
-        onOk={() => {
-          form.validateFields().then((values) => {
+        onOk={async () => {
+          return form.validateFields().then(async (values) => {
             form.resetFields();
-            if (onSubmit) onSubmit(values);
+            if (onSubmit) return onSubmit(values);
+            return Promise.resolve();
           });
         }}
         onCancel={onCancel}

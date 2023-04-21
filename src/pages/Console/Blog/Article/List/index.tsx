@@ -123,7 +123,7 @@ export default class ArticleList extends Component<RouterComponentProps> {
               key={id}
               actions={[
                 <IconText type="eye" text={views} />,
-                <IconText type="appstore" text={category.name} />,
+                <IconText type="appstore" text={category?.name} />,
                 <IconText
                   type="calendar"
                   text={moment(publishTime).format('YYYY-MM-DD HH:mm')}

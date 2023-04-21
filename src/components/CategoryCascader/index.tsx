@@ -4,8 +4,11 @@ import { action, makeObservable, observable, runInAction } from 'mobx';
 import { Button, Cascader, CascaderProps } from 'antd';
 
 import { Icon } from '@/components';
-import { queryCategoryList, submitCategory } from '@/services/blog/category';
 import { getResponseList } from '@/utils/utils';
+import {
+  queryCategoryList,
+  submitCategory,
+} from '@/services/console/blog/category';
 
 import CategoryForm from '../CategoryForm';
 
