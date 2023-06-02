@@ -79,11 +79,13 @@ export default class CategoryCascader extends Component<
           options={this.categoryList}
           style={{ flex: '1 1' }}
         />
-        <CategoryForm
-          open={this.modalOpen}
-          onCancel={this.handleCancel}
-          onSubmit={this.handleSubmit}
-        />
+        {this.modalOpen && (
+          <CategoryForm
+            open={this.modalOpen}
+            onCancel={this.handleCancel}
+            onSubmit={this.handleSubmit}
+          />
+        )}
         <Button type="link" onClick={this.handleAdd}>
           <Icon type="plus" /> 新增分类
         </Button>

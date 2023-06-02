@@ -20,10 +20,7 @@ const CategoryForm: React.FC<CategoryFormProps> = observer(
       form.setFieldsValue({
         id: currentCategory?.id,
         name: currentCategory?.name,
-        parentCategory: {
-          value: currentCategory?.parent?.id,
-          label: currentCategory?.parent?.name,
-        },
+        parentCategory: currentCategory?.parent?.id,
       });
     }, [currentCategory, form]);
     return (
@@ -44,7 +41,9 @@ const CategoryForm: React.FC<CategoryFormProps> = observer(
         onCancel={onCancel}
       >
         <Form form={form} layout="vertical">
-          <FormItem name="id" />
+          <FormItem name="id">
+            <Input hidden />
+          </FormItem>
           <FormItem
             name="name"
             required

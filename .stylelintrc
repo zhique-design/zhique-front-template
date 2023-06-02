@@ -1,5 +1,11 @@
 {
   "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+  "overrides": [
+    {
+      "files": "**/*.less",
+      "customSyntax": "postcss-less"
+    }
+  ],
   "rules": {
     "selector-attribute-quotes": "never",
     "at-rule-no-unknown": null,

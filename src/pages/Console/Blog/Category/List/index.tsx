@@ -167,12 +167,14 @@ export default class CategoryList extends Component {
             onShowSizeChange: this.setPageSize,
           }}
         />
-        <CategoryForm
-          open={this.modalOpen}
-          onCancel={this.handleCancel}
-          currentCategory={this.currentCaCategory}
-          onSubmit={this.handleSubmit}
-        />
+        {this.modalOpen && (
+          <CategoryForm
+            open={this.modalOpen}
+            onCancel={this.handleCancel}
+            currentCategory={this.currentCaCategory}
+            onSubmit={this.handleSubmit}
+          />
+        )}
       </>
     );
   }

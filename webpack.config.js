@@ -107,8 +107,8 @@ module.exports = {
     app: path.resolve(__dirname, 'src', 'index.tsx'),
   },
   output: {
-    filename: 'static/js/[name].[hash:8].js',
-    chunkFilename: 'static/js/[name].chunk.[hash:8].js',
+    filename: 'static/js/[name].[contenthash:8].js',
+    chunkFilename: 'static/js/[name].chunk.[contenthash:8].js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
   },
